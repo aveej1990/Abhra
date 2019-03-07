@@ -98,20 +98,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				print_r($result);
 
-				echo $result['data'][0]->description.'<br>';
+				//echo $result['data'][0]->description.'<br>';
 				  echo 'mmm...'.$result['oldname'];
 
-				  	?>
+				  	?>	
 
-				  <form>
+				   <?php
+				   if(!empty($result['data'][0]))
+				   {	
+
+				   echo form_open('welcome/update'); ?>
+				   
+				   <input type="hidden" name="oldname" value="<?php echo $result['oldname']; ?>" required>
 				  	
 				  	<label for="Firstname"> First Name:</label>
-				  	<input type="text" name="firstname" value=" <?php echo $result['data'][0]->last_name; ?>" required>
+				  	<input type="text" name="firstname" value="<?php echo $result['data'][0]->first_name; ?>" required>
 
-				  </form>
+				  	<label for="Firstname"> Lst Name:</label>
+				  	<input type="text" name="lasname" value="<?php echo $result['data'][0]->last_name; ?>" required>
+				  	<label for="Firstname"> city:</label>
+				  	<input type="text" name="city" value="<?php echo $result['data'][0]->city; ?>" required>
+				  	<label for="Firstname"> description:</label>
+				  	<input type="text" name="desc" value="<?php echo $result['data'][0]->description; ?>" required>
+
+				    <input type="submit" name="submit"  value="submit">
+					
+					
+				   <?php  } else 
+				   {
+					   echo "no data found";
+				   }					   ?>
+
+				    
+		</form>
+
 
 		</div>
 	</div>
 
 </body>
-</html>
+</html> 

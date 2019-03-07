@@ -22,11 +22,8 @@ class Getdetails extends CI_Controller {
 	{
 
 		$this->load->library('session');
-
 		$this->load->model('Detailsmodel');
-
 		$this->load->helper('url');
-
 
 		$data['result']=$this->Detailsmodel->getdetails();
 

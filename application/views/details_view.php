@@ -89,7 +89,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<tr>
 					<th>Firstname</th>
 					<th>Lastname</th>
-					<th>Email</th>
+					<th>city</th>
+					<th>start_date</th>
+					<th>desc</th>
 				</tr>
 
 				<?php 
@@ -97,7 +99,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				echo "<pre>";
 
 				print_r($result);
-
+ 
+ 
 
      if(!empty($this->session->flashdata('message')))
 				echo $this->session->flashdata('message');
@@ -107,7 +110,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<tr>
 						<td><?php echo $value->first_name ?></td>
 						<td><?php echo $value->last_name ?></td>
-						<td><?php echo  $value->email ?></td>
+						<td><?php echo  $value->city ?></td>
+						<td><?php echo  $value->start_date ?></td>
+						<td><?php echo  $value->description ?></td>
 
 						<td><a href="<?php echo site_url().'/welcome/delete/'.$value->last_name ?> " > delete </a></td>
 						<td><a href="<?php echo site_url().'/welcome/Edit/'.$value->last_name ?> " > Edit </a></td>

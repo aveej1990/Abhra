@@ -65,15 +65,59 @@ class Welcome extends CI_Controller {
 
 		$this->load->helper('form');
 
+		$this->load->helper('url');
+
 		$this->load->database();
 
-		$name=$this->uri->segment('3');
+		$name=trim($this->uri->segment('3'));
 
 		$data['result']['data']=$this->db->get_where('employee',array('last_name'=>$name))->result();
 
 		$data['result']['oldname']=$name;
+		
+		//print_r($this->db->last_query());  exit;
 
 		$this->load->view('edit_view',$data);
+	}
+
+	public function update()
+	{
+		$this->load->library('session');
+		$this->load->helper('form');
+		$this->load->helper('url');
+		$this->load->database();
+
+
+		$data = array( 
+			'first_name' => $this->input->post('firstname'), 
+			'last_name' => $this->input->post('lasname'),
+			'description' => $this->input->post('desc'),
+			'city' => $this->input->post('city')
+		); 
+
+		$oldname= trim($this->input->post('oldname'));
+
+		$this->db->where('last_name',$oldname);
+
+		  $succ=$this->db->update('employee',$data);
+
+	 
+		if($succ)
+		{
+			$this->session->set_flashdata('message', "SUCCESS_MESSAGE_HERE"); 
+			redirect('getdetails');
+		}
+		else
+		{
+
+			$this->session->set_flashdata('message', "failure_MESSAGE_HERE"); 
+			redirect('getdetails');
+
+		}
+
+		// print_r($this->db->last_query()); 
+
+
 	}
 
 	public function delete()
@@ -83,16 +127,18 @@ class Welcome extends CI_Controller {
 
 		$this->load->helper('url');
 
-		$name=$this->uri->segment('3');
+		$name=trim($this->uri->segment('3'));
 
 		$this->load->database();
 
 		$succ=$this->db->delete('employee',array('last_name'=>$name));
+		
+		print_r($this->db->last_query());  
 
 		if($succ)
 		{
 			$this->session->set_flashdata('message', "SUCCESS_MESSAGE_HERE"); 
-			 redirect('getdetails');
+			redirect('getdetails');
 		}
 		else
 		{
@@ -102,7 +148,5 @@ class Welcome extends CI_Controller {
 
 		}
 	}
-
-
 
 }
